@@ -5,7 +5,10 @@ vector <char> l1 = {'A', 'B', 'C'};
 vector <char> l2 = {'D', 'E', 'F'};
 vector <char> l3 = {'G', 'H', 'I'};
 
-char key(char &x) {
+vector <int> playerX;
+vector <int> playerO;
+
+int key(char &x) {
     if (x=='A') return 2;
     else if (x=='B') return 9;
     else if (x=='C') return 4;
@@ -19,6 +22,26 @@ char key(char &x) {
 
 void bl(){
     cout << '\n';
+}
+
+void add(int &l, int &n){
+    if (l==0){
+        playerO.push_back(n);
+    } else {
+        playerX.push_back(n);
+    }
+}
+
+bool check(vector <int> &l){
+    bool r = false;
+    for (int i1=0; i1<l.size(); i1++){
+        for (int i2=i1; i2<l.size()-i1; i2++){
+            for (int i3=0; i3<l.size()-i2; i3++){
+                if (i1+i2+i3 == 15) r = true;
+            }
+        }
+    }
+    return r;
 }
 
 void change(char &p, int &j){
@@ -54,10 +77,22 @@ int main() {
     cout << "Jogo para 2 jogadores.\n\n";
     print(); bl();
     int play = 1;
-    cout << "Primeiro jogador! [x]\nEscolha uma casa: ";
-    char pos; cin >> pos;
-    change(pos, play); bl();
-    print();
+    string res = "Empate!";
+
+    for (int times=0; times<9; times++) {
+        char c;
+        if (play==1) c = 'X'; else c = 'O';
+        cout << "Jogador "<<c<<"!\nEscolha uma casa: ";
+        char pos; cin >> pos;
+        int v = key(pos); add(play, v);
+        change(pos, play); bl();
+        print();
+        if (play==1) play=0; else play=1;
+        if (check(playerX)) {res = "Jogador X venceu!"; break;}
+        else if (check(playerO)) {res = "Jogador O venceu!"; break;}
+    }
+
+    cout << res << endl;
 
     return 0;
 }
