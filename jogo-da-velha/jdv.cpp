@@ -89,16 +89,17 @@ int main() {
         int v = key(pos); add(play, v);
         change(pos, play); bl();
         print();
+        cout << endl;
         if (play==1) play=0; else play=1;
-        for (int i : playerX) cout << i << ' ';
-        cout << '\n';
-        for (int i : playerO) cout << i << ' ';
-        cout << '\n';
-        if (check(playerX)) {res = "Jogador X venceu!"; break;}
-        if (check(playerO)) {res = "Jogador O venceu!"; break;}
+        if (playerX.size() >=3){
+            if (check(playerX)) {res = "Jogador X venceu!"; break;}
+        }
+        if (playerO.size() >=3){
+            if (check(playerO)) {res = "Jogador O venceu!"; break;}
+        }
     }
 
-    cout << res << endl;
+    cout << endl << res << endl;
 
     return 0;
 }
