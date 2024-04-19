@@ -34,10 +34,12 @@ void add(int &l, int &n){
 
 bool check(vector <int> &l){
     bool r = false;
-    for (int i1=0; i1<l.size(); i1++){
-        for (int i2=i1; i2<l.size()-i1; i2++){
-            for (int i3=0; i3<l.size()-i2; i3++){
-                if (i1+i2+i3 == 15) r = true;
+    for (int i1=0; i1<9; i1++){
+        for (int i2=i1+1; i2<9; i2++){
+            for (int i3=i2+1; i3<9; i3++){
+                if (l[i1] + l[i2] + l[i3] == 15){
+                    r = true;
+                }
             }
         }
     }
@@ -88,8 +90,12 @@ int main() {
         change(pos, play); bl();
         print();
         if (play==1) play=0; else play=1;
+        for (int i : playerX) cout << i << ' ';
+        cout << '\n';
+        for (int i : playerO) cout << i << ' ';
+        cout << '\n';
         if (check(playerX)) {res = "Jogador X venceu!"; break;}
-        else if (check(playerO)) {res = "Jogador O venceu!"; break;}
+        if (check(playerO)) {res = "Jogador O venceu!"; break;}
     }
 
     cout << res << endl;
